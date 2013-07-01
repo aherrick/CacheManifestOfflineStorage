@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html manifest="/Home/CacheMainfest">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <link href="/Content/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/css/lib/toastr.min.css" rel="stylesheet" />
+    <link href="/Content/css/app/style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="alertOffline" class="alert alert-error" data-bind="visible: !IsOnline()">
+        <strong>Offline!</strong>
+    </div>
+
+    <div id="alertOnline" class="alert alert-success" data-bind="visible: IsOnline">
+        <strong>Online!</strong>
+    </div>
+
+    <div style="float: right" data-bind="if: ContactsLocal().length">
+
+        <h2>Local</h2>
+
+        <ul data-bind="foreach: ContactsLocal">
+            <li data-bind="text: $data"></li>
+        </ul>
+
+        <button class="btn btn-primary" data-bind="click: SaveLocal, visible: IsOnline">Save to Server</button>
+    </div>
+
+
+    <label for="contact">Contact:</label>
+    <input type="text" name="contact" id="contact" class="input-medium  search-query" />
+    <button class="btn btn-primary" data-bind="click: Save">Add</button>
+
+    <label for="online">Online?</label>
+    <input type="checkbox" name="online" data-bind="checked: IsOnline" />
+
+
+    <div>
+        <h2>Contacts</h2>
+        <ul data-bind="foreach: Contacts">
+            <li data-bind="text: Name, attr: { 'data-id': Id }"></li>
+        </ul>
+
+        <script src="/Content/js/lib/knockout-2.2.1.js"></script>
+        <script src="/Content/js/lib/jquery-2.0.2.js"></script>
+        <script src="/Content/js/lib/toastr.js"></script>
+        <script src="/Content/js/lib/bootstrap.js"></script>
+
+        <script src="/Content/js/app/main.js"></script>
+        <script src="/Content/js/app/offline.js"></script>
+    </div>
+</body>
+</html>
