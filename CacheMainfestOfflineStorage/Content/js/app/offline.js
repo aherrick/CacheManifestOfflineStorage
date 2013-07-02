@@ -6,11 +6,13 @@
         success: function (msg) {
 
             // online
+            vm.IsOnline(true);
             checkOnline();
         },
         error: function () {
 
             // offline
+            vm.IsOnline(false);
             checkOnline();
         }
     });
