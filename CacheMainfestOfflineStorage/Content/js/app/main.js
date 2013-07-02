@@ -4,22 +4,11 @@
 
 
     self.Contacts = ko.observableArray([]);
+    GetContacts();
+
     self.ContactsLocal = ko.observableArray(JSON.parse(localStorage.getItem('contacts')) || []);
 
     self.IsOnline = ko.observable(true);
-
-    $.ajax({
-
-        url: '/Contact/GetAll',
-        success: function (data) {
-
-            self.Contacts(data);
-        },
-        error: function () {
-
-            self.IsOnline(false);
-        }
-    })
 
 
     self.Save = function () {
@@ -65,8 +54,24 @@ function SaveToServer(contactName) {
         success: function (contact) {
 
             toastr.success('Successfully saved to server!');
-            vm.Contacts.push(contact);
+            GetContacts();
         }
     });
 }
 
+function GetContacts() {
+
+    $.ajax({
+
+        url: '/Contact/GetAll',
+        success: function (data) {
+
+            vm.Contacts(data);
+        },
+        error: function () {
+
+            vm.IsOnline(false);
+        }
+    })
+
+}
