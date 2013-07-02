@@ -10,7 +10,6 @@
 
     self.IsOnline = ko.observable(true);
 
-
     self.Save = function () {
 
         var contactName = $('#contact').val();
